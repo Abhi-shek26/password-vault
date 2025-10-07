@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '../../../lib/db';
-import VaultItemModel, { IVaultItem } from '../../../lib/models/VaultItem';
+import VaultItemModel from '../../../lib/models/VaultItem';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../lib/auth';
 import { decryptData } from '../../../lib/crypto';
