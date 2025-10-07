@@ -13,6 +13,11 @@ import ImportVault from '../components/vault/ImportVault';
 import { encryptData, decryptData } from '../lib/crypto';
 import { IVaultItem } from '../lib/models/VaultItem';
 
+interface DecryptedData {
+  username: string;
+  password: string;
+}
+
 interface FormState {
   title: string;
   url: string;
@@ -22,7 +27,7 @@ interface FormState {
 }
 
 export default function DashboardPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
 
   // State Management
@@ -83,7 +88,7 @@ export default function DashboardPage() {
       setError('Please enter your master password to decrypt and edit items.');
       return;
     }
-    const decrypted = decryptData(item.encryptedData, masterPassword);
+    const decrypted = decryptData(item.encryptedData, masterPassword) as DecryptedData | null;
     if (!decrypted) {
       setError('Decryption failed. Incorrect master password.');
       return;
@@ -183,7 +188,7 @@ export default function DashboardPage() {
           </section>
           <section>
             <h2 className="text-xl font-bold mb-4">Master Password</h2>
-            <p className="text-sm text-gray-400 mb-2">Enter this to encrypt/decrypt items. It's never stored.</p>
+            <p className="text-sm text-gray-400 mb-2">Enter this to encrypt/decrypt items. It is never stored.</p>
             <Input
               type="password"
               placeholder="Enter your Master Password"

@@ -14,14 +14,14 @@ const VaultItem: React.FC<VaultItemProps> = ({ item, onEdit, onDelete }) => {
     try {
       const urlObject = new URL(url);
       return urlObject.hostname;
-    } catch (e) {
+    } catch {
       // If it's not a valid URL, just show the first part of it
       return url.length > 30 ? `${url.substring(0, 27)}...` : url;
     }
   };
 
   return (
-    <div className="p-4 bg-card rounded-lg flex items-center justify-between gap-4 transition-colors hover:bg-gray-700">
+    <div className="p-4 bg-card rounded-lg flex items-center justify-between gap-4 transition-colors hover:bg-muted">
       {/* Item Details Section */}
       <div className="flex-grow overflow-hidden">
         <h3 className="font-bold text-lg text-foreground truncate">{item.title}</h3>
@@ -30,7 +30,7 @@ const VaultItem: React.FC<VaultItemProps> = ({ item, onEdit, onDelete }) => {
             href={item.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm text-blue-400 hover:underline break-all"
+            className="text-sm text-muted hover:underline break-all"
             onClick={(e) => e.stopPropagation()} // Prevents triggering parent onClick events
           >
             {displayUrl(item.url)}

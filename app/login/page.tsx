@@ -8,7 +8,7 @@ export default function LoginPage() {
             <h2 className="text-2xl font-bold mb-6 text-foreground text-center">Login to Your Vault</h2>
             <LoginForm />
             <p className="text-center text-sm text-muted-foreground mt-4">
-            Don't have an account?{' '}
+            Do not have an account?{' '}
             <Link href="/register" className="font-semibold text-blue-400 hover:underline">
                 Register
             </Link>
