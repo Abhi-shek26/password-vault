@@ -58,8 +58,8 @@ export default function ImportVault({ currentMasterPassword, onImportSuccess }: 
 
       alert('Vault imported successfully!');
       onImportSuccess();
-    } catch (err: any) {
-      setError(err.message || 'Failed to import vault.');
+    } catch  {
+      setError('Failed to import vault.');
     } finally {
       setIsImporting(false);
     }

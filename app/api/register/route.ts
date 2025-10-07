@@ -22,8 +22,8 @@ export async function POST(req: NextRequest) {
     console.log('Successfully created user:', user._id); // Good for debugging
 
     return NextResponse.json({ message: 'User created successfully' }, { status: 201 });
-  } catch (error: any) {
-    console.error('REGISTRATION ERROR:', error);
+  } catch  {
+    console.error('REGISTRATION ERROR:');
     return NextResponse.json({ message: 'An internal server error occurred' }, { status: 500 });
   }
 }

@@ -98,8 +98,8 @@ export default function DashboardPage() {
         title: item.title,
         url: item.url || '',
         notes: item.notes || '',
-        username: (decrypted as any).username || '',
-        password: (decrypted as any).password || '',
+        username: (decrypted as DecryptedData).username || '',
+        password: (decrypted as DecryptedData).password || '',
     });
     setIsFormVisible(true);
     setError('');
