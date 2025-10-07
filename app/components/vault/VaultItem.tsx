@@ -21,10 +21,10 @@ const VaultItem: React.FC<VaultItemProps> = ({ item, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="p-4 bg-gray-800 rounded-lg flex items-center justify-between gap-4 transition-colors hover:bg-gray-700">
+    <div className="p-4 bg-card rounded-lg flex items-center justify-between gap-4 transition-colors hover:bg-gray-700">
       {/* Item Details Section */}
       <div className="flex-grow overflow-hidden">
-        <h3 className="font-bold text-lg text-white truncate">{item.title}</h3>
+        <h3 className="font-bold text-lg text-foreground truncate">{item.title}</h3>
         {item.url && (
           <a
             href={item.url}

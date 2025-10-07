@@ -8,7 +8,8 @@ import PasswordGenerator from '../components/vault/Generator';
 import VaultList from '../components/vault/VaultList';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-
+import ExportVault from '../components/vault/ExportVault';
+import ImportVault from '../components/vault/ImportVault';
 import { encryptData, decryptData } from '../lib/crypto';
 import { IVaultItem } from '../lib/models/VaultItem';
 
@@ -178,7 +179,6 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-1 space-y-8">
           <section>
-            <h2 className="text-xl font-bold mb-4">Password Generator</h2>
             <PasswordGenerator />
           </section>
           <section>
@@ -209,24 +209,43 @@ export default function DashboardPage() {
 
           <VaultList items={vaultItems} onEdit={handleEdit} onDelete={handleDelete} searchQuery={searchQuery} />
         </div>
+        <div className="space-y-6">
+              <ExportVault vaultItems={vaultItems} />
+              <ImportVault 
+                currentMasterPassword={masterPassword} 
+                onImportSuccess={fetchVaultItems} 
+              />
+            </div>
       </div>
 
       {isFormVisible && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-          <form onSubmit={handleSave} className="bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md space-y-4">
-            <h3 className="text-xl font-bold">{selectedItem ? 'Edit Item' : 'Add New Item'}</h3>
-            <Input name="title" placeholder="Title" value={formState.title} onChange={handleFormChange} required />
-            <Input name="url" placeholder="URL (optional)" value={formState.url} onChange={handleFormChange} />
-            <Input name="username" placeholder="Username/Email" value={formState.username} onChange={handleFormChange} />
-            <Input name="password" placeholder="Password" value={formState.password} onChange={handleFormChange} required />
-            <textarea name="notes" placeholder="Notes (optional)" value={formState.notes} onChange={handleFormChange} className="w-full px-3 py-2 rounded-md border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            <div className="flex justify-end gap-4">
-                <Button type="button" variant="danger" onClick={() => setIsFormVisible(false)}>Cancel</Button>
-                <Button type="submit">Save</Button>
-            </div>
-          </form>
-        </div>
-      )}
+  <div className="fixed inset-0 bg-background/50 flex items-center justify-center p-4 z-50 backdrop-blur-lg">
+    <form 
+      onSubmit={handleSave} 
+      className="bg-card text-foreground p-6 rounded-lg shadow-xl w-full max-w-md space-y-4 border border-muted"
+    >
+      <h3 className="text-xl font-bold">{selectedItem ? 'Edit Item' : 'Add New Item'}</h3>      
+      <Input name="title" placeholder="Title" value={formState.title} onChange={handleFormChange} required />
+      <Input name="url" placeholder="URL (optional)" value={formState.url} onChange={handleFormChange} />
+      <Input name="username" placeholder="Username/Email" value={formState.username} onChange={handleFormChange} />
+      <Input name="password" placeholder="Password" value={formState.password} onChange={handleFormChange} required />
+      
+      <textarea 
+        name="notes" 
+        placeholder="Notes (optional)" 
+        value={formState.notes} 
+        onChange={handleFormChange} 
+        className="w-full px-3 py-2 rounded-md border border-muted bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+      />
+      
+      <div className="flex justify-end gap-4">
+        <Button type="button" variant="danger" onClick={() => setIsFormVisible(false)}>Cancel</Button>
+        <Button type="submit">Save</Button>
+      </div>
+    </form>
+  </div>
+)}
+
     </div>
   );
 }

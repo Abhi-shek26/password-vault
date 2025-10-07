@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '../../../lib/db';
 import VaultItemModel from '../../../lib/models/VaultItem';
-import { getServerSession } from "next-auth/next"; // <-- Import
+import { getServerSession } from "next-auth/next"; 
 import { authOptions } from "../../../lib/auth";
 
 type RouteParams = { params: { id: string } };

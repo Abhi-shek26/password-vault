@@ -10,11 +10,8 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: [true, 'Please provide a password.'],
-    select: false, // By default, do not include the password in query results
+    select: false, 
   },
 });
 
-// This is the crucial part:
-// Check if the model is already compiled. If not, compile it.
-// This prevents the "OverwriteModelError" in Next.js's hot-reload environment.
 export default mongoose.models.User || mongoose.model('User', UserSchema);

@@ -1,6 +1,5 @@
 import React from 'react';
-// import VaultItem from './VaultItem'; // Removed due to local declaration conflict
-import { IVaultItem } from '../../lib/models/VaultItem'; // Assuming you have this interface
+import { IVaultItem } from '../../lib/models/VaultItem'; 
 import Button from '../ui/Button';
 
 interface VaultListProps {
@@ -45,10 +44,10 @@ interface VaultItemProps {
 
 const VaultItem: React.FC<VaultItemProps> = ({ item, onEdit, onDelete }) => {
   return (
-    <div className="p-4 bg-gray-800 rounded-lg flex items-center justify-between gap-4">
+    <div className="p-4 bg-card rounded-lg flex items-center justify-between gap-4">
       <div>
-        <h3 className="font-bold text-lg">{item.title}</h3>
-        <p className="text-sm text-gray-400">{item.url}</p>
+        <h3 className="font-bold text-lg text-foreground">{item.title}</h3>
+        <p className="text-sm text-muted-foreground">{item.url}</p>
       </div>
       <div className="flex gap-2">
         <Button onClick={() => onEdit(item)}>Edit</Button>

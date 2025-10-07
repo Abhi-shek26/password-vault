@@ -51,10 +51,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-// --- THIS IS THE KEY CHANGE ---
 // Call NextAuth with your options and store the result in a temporary constant.
 const handler = NextAuth(authOptions);
 
-// Export the GET and POST handlers from the temporary constant.
-// This is the most stable export pattern.
 export { handler as GET, handler as POST };

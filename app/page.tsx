@@ -5,14 +5,14 @@ export default function HomePage() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-8 text-center">
       <div className="mb-8 flex items-center justify-center">
-        <LockKeyhole className="h-16 w-16 text-blue-500" />
+        <LockKeyhole className="h-16 w-16 text-foreground" />
       </div>
 
-      <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+      <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
         Welcome to Your Secure Vault
       </h1>
 
-      <p className="max-w-xl text-lg text-gray-400 mb-10">
+      <p className="max-w-xl text-lg text-muted-foreground mb-10">
         Generate strong, unique passwords and store them in a zero-knowledge,
         encrypted vault that only you can unlock.
       </p>

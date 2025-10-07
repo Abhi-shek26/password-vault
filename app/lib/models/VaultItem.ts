@@ -5,7 +5,7 @@ export interface IVaultItem extends Document {
   title: string;
   url: string;
   notes: string;
-  encryptedData: string; // Will store encrypted username/password
+  encryptedData: string; 
 }
 
 const VaultItemSchema: Schema<IVaultItem> = new Schema({
