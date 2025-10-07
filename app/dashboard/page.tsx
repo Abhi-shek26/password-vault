@@ -106,33 +106,24 @@ export default function DashboardPage() {
   };
 
   const handleDelete = async (id: string) => {
-  // Require master password first
-  if (!masterPassword) {
-    setError('Please enter your master password to delete items.');
-    return;
+     const enteredMasterPassword = prompt('To confirm deletion, please re-enter your Master Password:');
+if (!enteredMasterPassword) {
+    return; // User cancelled the prompt.
   }
-
-  // Find the item by ID
-  const item = vaultItems.find(v => (v._id as string) === id);
-  if (!item) {
-    setError('Item not found.');
-    return;
-  }
-
-  // Confirm delete before decrypting
-  const confirmDelete = confirm('Are you sure you want to delete this item?');
-  if (!confirmDelete) return;
-
-  // Validate master password by decrypting
-  const decrypted = decryptData(item.encryptedData, masterPassword);
-  if (!decrypted) {
-    setError('Decryption failed. Incorrect master password.');
-    return;
+  
+  // This client-side check provides immediate feedback.
+  if (enteredMasterPassword !== masterPassword) {
+      setError("The password you entered doesn't match the one used to unlock the vault.");
+      return;
   }
 
   // Proceed with backend deletion
   try {
-    const res = await fetch(`/api/vault/${id}`, { method: 'DELETE' });
+    const res = await fetch(`/api/vault/${id}`, { 
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ masterPassword: enteredMasterPassword }),
+    });
 
     if (res.ok) {
       setVaultItems(prev => prev.filter(v => (v._id as string) !== id));
