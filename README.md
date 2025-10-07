@@ -3,7 +3,7 @@
 ## 🌐 Live Demo
 
 You can check out the deployed version of the app here:  
-👉 **[Secure Password Vault — Live Demo](https://your-deployed-link.vercel.app)**
+👉 **[Secure Password Vault — Live Demo](https://password-vault-yczq.vercel.app/)**
 
 A **full-stack, zero-knowledge password manager** built with **Next.js, Next-Auth, and MongoDB**.  
 This application enables users to generate, store, and manage sensitive credentials in an encrypted vault that **only they can unlock**.
