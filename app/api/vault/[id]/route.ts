@@ -5,13 +5,9 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../../../lib/auth';
 import { decryptData } from '../../../lib/crypto';
 
-interface RouteContext {
-  params: {
-    id: string;
-  };
-}
+export async function PUT(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
 
-export async function PUT(req: NextRequest, { params }: RouteContext) {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
@@ -28,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
     await dbConnect();
 
     const updatedItem = await VaultItemModel.findOneAndUpdate(
-      { _id: params.id, userId: session.user.id },
+      { _id: id, userId: session.user.id },
       { title, url, notes, encryptedData },
       { new: true }
     );
@@ -44,7 +40,9 @@ export async function PUT(req: NextRequest, { params }: RouteContext) {
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: RouteContext) {
+export async function DELETE(req: NextRequest, context: { params: Promise<{ id: string }> }) {
+  const { id } = await context.params;
+
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
@@ -57,8 +55,8 @@ export async function DELETE(req: NextRequest, { params }: RouteContext) {
     }
 
     await dbConnect();
-    const itemToDelete = await VaultItemModel.findOne({ _id: params.id, userId: session.user.id });
 
+    const itemToDelete = await VaultItemModel.findOne({ _id: id, userId: session.user.id });
     if (!itemToDelete) {
       return NextResponse.json({ error: 'Item not found or not authorized' }, { status: 404 });
     }
@@ -68,7 +66,7 @@ export async function DELETE(req: NextRequest, { params }: RouteContext) {
       return NextResponse.json({ error: 'Incorrect Master Password.' }, { status: 403 });
     }
 
-    await VaultItemModel.deleteOne({ _id: params.id });
+    await VaultItemModel.deleteOne({ _id: id });
 
     return NextResponse.json({ message: 'Item deleted successfully' });
   } catch (error) {
